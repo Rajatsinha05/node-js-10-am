@@ -51,4 +51,11 @@ const upload = multer({
   storage: storage,
 });
 
-module.exports = { getUser, updateUser, deleteUser, createUser, upload };
+
+// html
+
+const getIndex=(req, res) => {
+  res.render("index")
+}
+
+module.exports = { getUser, updateUser, deleteUser, createUser, upload,getIndex };
