@@ -6,24 +6,40 @@ const getUser = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
-  console.log("req.body:", req.body);
-  console.log("req.files:", req.file);
 
-  let { name, email, psw } = req.body;
+
+  let { username, email, password } = req.body;
   let profile;
-  if (req.file) {
-    profile = req.file.path;
+
+  if (req.files) {
+    profile = req.files.map((ele) => ele.path)
+
+    // for (let i = 0; i < req.files.length; i++) {
+    //   profile.push(req.files[i].path);
+    // }
   }
 
+
+
   let user = {
-    name,
+    username,
     email,
-    psw,
+    password,
     profile,
   };
-  let data = await User.create(user);
-  res.send(data);
+
+  const isExists = await User?.findOne({ email: email })
+
+  if (!isExists) {
+    let data = await User.create(user);
+    res.send(data);
+  }
+  else {
+    res.send({ user: isExists, msg: "user exists" })
+  }
+
 };
+
 
 const updateUser = async (req, res) => {
   let { id } = req.params;
@@ -54,8 +70,8 @@ const upload = multer({
 
 // html
 
-const getIndex=(req, res) => {
+const getIndex = (req, res) => {
   res.render("index")
 }
 
-module.exports = { getUser, updateUser, deleteUser, createUser, upload,getIndex };
+module.exports = { getUser, updateUser, deleteUser, createUser, upload, getIndex };

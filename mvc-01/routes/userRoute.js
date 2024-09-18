@@ -6,7 +6,7 @@ const userRouter = Router()
 
 
 userRouter.get("/", getUser)
-userRouter.post("/", upload.single("img"), createUser)
+userRouter.post("/", upload.array("img",5), createUser)
 userRouter.delete("/:id", deleteUser)
 userRouter.patch("/:id", updateUser)
 
@@ -21,6 +21,11 @@ userRouter.post("/upload", upload.single("img"), (req, res) => {
 userRouter.get("/login", (req, res) => {
     res.render("login");
 })
+
+userRouter.get("/signup", (req, res) => {
+    res.render("signup")
+});
+
 userRouter.get("/index", getIndex)
 
 
