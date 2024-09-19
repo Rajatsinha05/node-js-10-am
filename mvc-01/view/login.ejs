@@ -50,14 +50,7 @@
       <!-- Login box.scss -->
       <!-- ============================================================== -->
       <div
-        class="
-          auth-wrapper
-          d-flex
-          no-block
-          justify-content-center
-          align-items-center
-          bg-dark
-        "
+        class="auth-wrapper d-flex no-block justify-content-center align-items-center bg-dark"
       >
         <div class="auth-box bg-dark border-top border-secondary">
           <div id="loginform">
@@ -70,7 +63,8 @@
             <form
               class="form-horizontal mt-3"
               id="loginform"
-              action="index.html"
+              action="/user/login"
+              method="POST"
             >
               <div class="row pb-4">
                 <div class="col-12">
@@ -83,12 +77,13 @@
                       ></span>
                     </div>
                     <input
-                      type="text"
+                      type="email"
                       class="form-control form-control-lg"
-                      placeholder="Username"
+                      placeholder="email"
                       aria-label="Username"
                       aria-describedby="basic-addon1"
                       required=""
+                      name="email"
                     />
                   </div>
                   <div class="input-group mb-3">
@@ -106,6 +101,7 @@
                       aria-label="Password"
                       aria-describedby="basic-addon1"
                       required=""
+                      name="password"
                     />
                   </div>
                 </div>
@@ -117,7 +113,7 @@
                       <button
                         class="btn btn-info"
                         id="to-recover"
-                        type="button"
+                        type="submit"
                       >
                         <i class="mdi mdi-lock fs-4 me-1"></i> Lost password?
                       </button>

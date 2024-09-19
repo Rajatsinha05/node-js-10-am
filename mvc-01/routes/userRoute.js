@@ -1,6 +1,6 @@
 const { Router } = require("express")
 const User = require("../model/user_schema")
-const { getUser, createUser, deleteUser, updateUser, upload, getIndex } = require("../controllers/user.controller")
+const { getUser, createUser, deleteUser, updateUser, upload, getIndex, login } = require("../controllers/user.controller")
 
 const userRouter = Router()
 
@@ -21,12 +21,22 @@ userRouter.post("/upload", upload.single("img"), (req, res) => {
 userRouter.get("/login", (req, res) => {
     res.render("login");
 })
-
+userRouter.post("/login", login)
 userRouter.get("/signup", (req, res) => {
     res.render("signup")
 });
 
 userRouter.get("/index", getIndex)
 
+// delete many
+
+userRouter.delete("/delete", async(req, res) => {
+
+let user=await User.deleteMany({})
+
+
+res.send({user,msg: "delete"})
+
+});
 
 module.exports = userRouter
