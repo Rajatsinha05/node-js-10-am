@@ -5,6 +5,7 @@ const cors = require("cors")
 const path = require('path');
 const cookies = require("cookie-parser");
 const isAuth = require('./middlewares/auth');
+const ProductRouter = require('./routes/product.route');
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -16,7 +17,7 @@ app.set("views", path.join(__dirname, 'view'))
 app.use(express.static(path.join(__dirname, 'public')));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/user", userRouter)
-
+app.use("/product",ProductRouter)
 app.get("/", isAuth,(req, res) => {
     res.render('index', { title: 'node' })
 })
