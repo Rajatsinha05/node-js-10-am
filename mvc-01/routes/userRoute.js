@@ -1,6 +1,7 @@
 const { Router } = require("express")
 const User = require("../model/user_schema")
 const { getUser, createUser, deleteUser, updateUser, upload, getIndex, login } = require("../controllers/user.controller")
+const sendingMail = require("../service/mailservice")
 
 const userRouter = Router()
 
@@ -38,5 +39,16 @@ let user=await User.deleteMany({})
 res.send({user,msg: "delete"})
 
 });
+
+
+
+// mail
+
+userRouter.post("/mail", (req, res) => {
+    const {to,subject,html} = req.body
+    sendingMail(to,subject,html)
+    res.send("sending mail") 
+})
+
 
 module.exports = userRouter
