@@ -1,6 +1,7 @@
 const User = require("../model/user_schema");
 const multer = require("multer");
 const sendingMail = require("../service/mailservice");
+const bcrypt = require("bcrypt");
 const getUser = async (req, res) => {
   let data = await User.find();
   res.send(data);
@@ -20,12 +21,15 @@ const createUser = async (req, res) => {
     // }
   }
 
+  let hashPassword = await bcrypt.hash(password,10)
+
+console.log("hashPassword", hashPassword);
 
 
   let user = {
     username,
     email,
-    password,
+    password:hashPassword,
     profile,
   };
 
@@ -84,10 +88,14 @@ const login = async (req, res) => {
   if (!user) {
     return res.send("user not found")
   }
+let isMatched=await bcrypt.compare(password,user.password)
+ if(!isMatched) {
+  return res.send("password mismatch")
+ }
 
-  if (user.password !== password) {
-    return res.send("password is incorrect")
-  }
+  // if (user.password !== password) {
+  //   return res.send("password is incorrect")
+  // }
   res.cookie("id", user.id).send({ user, msg: "logged in successfully" })
 
 }
