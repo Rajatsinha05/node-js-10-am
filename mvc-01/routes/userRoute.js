@@ -2,7 +2,7 @@ const { Router } = require("express")
 const User = require("../model/user_schema")
 const { getUser, createUser, deleteUser, updateUser, upload, getIndex, login, sendOtp, resetPassword } = require("../controllers/user.controller")
 const sendingMail = require("../service/mailservice")
-
+const passport = require('passport');
 const userRouter = Router()
 
 
@@ -22,11 +22,12 @@ userRouter.post("/upload", upload.single("img"), (req, res) => {
 userRouter.get("/login", (req, res) => {
     res.render("login");
 })
-userRouter.post("/login", login)
+userRouter.post("/login", passport.authenticate('local', {
+    successRedirect: "/",
+}))
 userRouter.get("/signup", (req, res) => {
     res.render("signup")
 });
-
 userRouter.get("/index", getIndex)
 
 // delete many

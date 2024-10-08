@@ -12,20 +12,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 // image
 // passport
-
+const LocalInitialize = require('./middlewares/passport');
 
 const session = require('express-session');
 const passport = require('passport');
-const LocalInitialize = require('./middlewares/passport');
+
 app.use(session({ secret: "private-key" }))
 
-LocalInitialize(passport)
+
 app.use(passport.initialize());
 app.use(passport.session());
 
+LocalInitialize(passport)
 
-
-
+app.use("/user", userRouter)
 
 
 
@@ -35,9 +35,9 @@ app.set('view engine', 'ejs');
 app.set("views", path.join(__dirname, 'view'))
 app.use(express.static(path.join(__dirname, 'public')));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-app.use("/user", userRouter)
+
 app.use("/product", ProductRouter)
-app.get("/", isAuth, (req, res) => {
+app.get("/",  (req, res) => {
     res.render('index', { title: 'node' })
 })
 // app.get("/index",(req, res) => {
