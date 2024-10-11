@@ -3,6 +3,7 @@ const User = require("../model/user_schema")
 const { getUser, createUser, deleteUser, updateUser, upload, getIndex, login, sendOtp, resetPassword } = require("../controllers/user.controller")
 const sendingMail = require("../service/mailservice")
 const passport = require('passport');
+const isLoggedIn = require("../middlewares/LoggedIn");
 const userRouter = Router()
 
 
@@ -41,6 +42,10 @@ userRouter.delete("/delete", async (req, res) => {
 
 });
 
+
+userRouter.get("/details",isLoggedIn, (req, res) => {
+    res.send({ user: req.user })
+})
 
 
 // mail

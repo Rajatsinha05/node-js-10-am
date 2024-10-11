@@ -16,6 +16,7 @@ const LocalInitialize = require('./middlewares/passport');
 
 const session = require('express-session');
 const passport = require('passport');
+const isLoggedIn = require('./middlewares/LoggedIn');
 
 app.use(session({ secret: "private-key" }))
 
@@ -37,7 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/product", ProductRouter)
-app.get("/",  (req, res) => {
+app.get("/", isLoggedIn, (req, res) => {
     res.render('index', { title: 'node' })
 })
 // app.get("/index",(req, res) => {

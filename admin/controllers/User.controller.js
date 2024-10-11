@@ -51,3 +51,8 @@ const accountVerification = async (req, res) => {
 
 module.exports = { createUser, getUser, deleteUser, accountVerification }
 
+
+
+
+
+// useCallback ,useMemo ,memo,image uploading firebase

@@ -20,7 +20,7 @@ const getProducts = async (req, res) => {
 }
 
 const getProductsByUserId = async (req, res) => {
-    let { id } = req.cookies
+    let { id } = req.user
     let products = await Product.find({ userId: id })
     res.send(products)
 }
