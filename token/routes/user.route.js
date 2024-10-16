@@ -4,7 +4,7 @@ const isAuth = require("../middleware/auth")
 
 const userRouter = Router()
 
-userRouter.get('/', isAuth,getUser)
+userRouter.get('/', getUser)
 userRouter.post("/signup", createUser)
 userRouter.post("/login", login)
 

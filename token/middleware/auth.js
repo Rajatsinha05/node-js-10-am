@@ -10,6 +10,7 @@ const isAuth = async (req, res, next) => {
             try {
                 let decode = await jwt.verify(token, "private-key")
                 if (decode) {
+                    req.body.userId=decode.id
                     next()
                 }
                 else {
